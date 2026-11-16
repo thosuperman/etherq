@@ -1,6 +1,6 @@
 # EtherQ demo video: how it was made (2:37)
 
-The video is **produced** (`EtherQ_Demo.mp4`, 1920×1080, 30 fps, 2:37, H.264/AAC, -16.4 LUFS). Captions: [`EtherQ_Demo.srt`](EtherQ_Demo.srt). It is not committed here because of its size; it is published on YouTube by the author.
+The video is **produced** (`EtherQ_Demo.mp4`, 1920×1080, 30 fps, 2:37, H.264/AAC, -16.4 LUFS). Captions: [`EtherQ_Demo.srt`](EtherQ_Demo.srt). It is not committed here because of its size. Watch it on YouTube: https://youtu.be/3qh97CGfWUU
 
 ## What is on screen
 

@@ -2,6 +2,8 @@
 
 EtherQ adds a **QNX OS 8.0 port of the SOEM EtherCAT master**. It turns the fieldbus into a **QNX resource manager** (`/dev/ecat`), so many isolated processes can share one real-time bus safely. It also ships **ecatsim**, a virtual EtherCAT segment, so the whole stack can be developed, demonstrated and tested in CI with no EtherCAT hardware.
 
+**Demo video (2:37):** https://youtu.be/3qh97CGfWUU (real QNX 8.0 in QEMU, simulated EtherCAT devices)
+
 - **Upstream:** [SOEM v2.0.1](https://github.com/OpenEtherCATsociety/SOEM), fetched by URL with a pinned SHA-256. It is not forked or vendored.
 - **QNX version / target / toolchain:** QNX OS 8.0 (SDP 8.0, QNX Everywhere) · QEMU x86_64 (aarch64le toolchain file included) · `qcc` / `gcc_ntox86_64`
 - **License:** GPL-3.0-or-later, because SOEM is GPLv3 / commercial dual-licensed.
