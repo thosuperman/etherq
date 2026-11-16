@@ -37,6 +37,7 @@ First public release, prepared for the QNX Global Hackathon 2026.
 - Supplementary groups dropped together with root.
 - BPF record validation; no sleep when another thread already received the frame.
 - WKC errors counted only in OP.
+- A slave is declared lost only after 3 consecutive unanswered supervisor polls (no recovery on a single late frame).
 - Clients use `O_CLOEXEC`.
 - Dashboard rejects cross-origin POSTs and invalid slave numbers.
 
