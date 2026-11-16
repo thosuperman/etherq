@@ -12,7 +12,7 @@
 ## 1. Prepare the host
 
 ```bash
-git clone <this repo> etherq && cd etherq
+git clone https://github.com/thosuperman/etherq.git etherq && cd etherq
 ./scripts/provision-ubuntu.sh
 sudo apt-get install -y socat     # used for the QEMU serial console helper
 ```

@@ -6,7 +6,7 @@ tags: intermediate
 difficulty: 2
 status: published
 authors: EtherQ contributors
-feedback_link: https://github.com/<owner>/etherq/issues
+feedback_link: https://github.com/thosuperman/etherq/issues
 
 
 # EtherCAT on QNX 8.0 without hardware
@@ -47,7 +47,7 @@ In this codelab you run the open-source **SOEM** master on **QNX OS 8.0** in QEM
 Duration: 5:00
 
 ```bash
-git clone https://github.com/<owner>/etherq.git
+git clone https://github.com/thosuperman/etherq.git
 cd etherq
 ./scripts/provision-ubuntu.sh
 ```
