@@ -1,0 +1,65 @@
+{
+  "voice": "kokoro:am_michael",
+  "speed": 0.92,
+  "scenes": [
+    {
+      "id": "problem",
+      "lines": [
+        "In a robot cell or a CNC machine, the application that commands a motor can crash.",
+        "When it does, the motor must not keep acting on its last command, and the rest of the machine must keep running."
+      ]
+    },
+    {
+      "id": "meet",
+      "lines": [
+        "EtherQ is an open-source EtherCAT master for QNX 8.0.",
+        "It ports the SOEM master to QNX, runs it in an independent daemon, and exposes the bus as a QNX resource manager under slash dev slash ecat.",
+        "Here it runs on real QNX 8.0 in QEMU, against three simulated EtherCAT devices."
+      ]
+    },
+    {
+      "id": "discover",
+      "lines": [
+        "Upstream SOEM, compiled for QNX, finds all three slaves through the io-sock packet filter.",
+        "The EtherQ daemon brings the bus to operational. Its cycle is driven by a QNX timer pulse, at a fixed real-time priority."
+      ]
+    },
+    {
+      "id": "drive",
+      "lines": [
+        "Now a separate process, axisdemo, enables the servo through the CiA 402 sequence, and drives it along a smooth profile."
+      ]
+    },
+    {
+      "id": "kill",
+      "lines": [
+        "Watch what happens when we kill it with SIGKILL.",
+        "No cleanup code runs in the client. But QNX closes its connection to the resource manager, and EtherQ zeroes the six output bytes it owned, and releases them.",
+        "The servo drops to switch on disabled, while the bus stays operational."
+      ]
+    },
+    {
+      "id": "reliability",
+      "lines": [
+        "Every output byte has exactly one owner. A second writer gets: resource busy.",
+        "If the master itself stops for one second, the devices' watchdogs drop them to safe operational, and the supervisor recovers the bus as soon as it resumes.",
+        "The daemon can also drop root after start-up, and keep running as an ordinary user, with locked QNX abilities."
+      ]
+    },
+    {
+      "id": "proof",
+      "lines": [
+        "This is a real QNX 8.0 build, with the QNX compiler, and zero warnings.",
+        "The safe stop is a few lines in the close handler.",
+        "And an automated end-to-end test on the QNX target passes every check."
+      ]
+    },
+    {
+      "id": "closing",
+      "lines": [
+        "EtherQ brings open-source EtherCAT to QNX, with crash-safe outputs by design.",
+        "Next step: validation on physical EtherCAT hardware."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ecatd: client closed /dev/ecat/out: 6 output bytes zeroed and released

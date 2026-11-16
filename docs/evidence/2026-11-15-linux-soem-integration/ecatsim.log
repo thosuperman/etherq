@@ -1,0 +1,36 @@
+2026-11-15 14:22:48,701 ecatsim INFO virtual EtherCAT segment with 3 slaves on interface eq-s
+2026-11-15 14:22:48,702 ecatsim INFO   slave 1: EQ-DI8 8Ch Dig In (virtual)
+2026-11-15 14:22:48,703 ecatsim INFO   slave 2: EQ-DO8 8Ch Dig Out (virtual)
+2026-11-15 14:22:48,704 ecatsim INFO   slave 3: EQ-AX1 Servo Axis (virtual)
+2026-11-15 14:22:48,716 ecatsim INFO slave 1 -> INIT
+2026-11-15 14:22:48,717 ecatsim INFO slave 2 -> INIT
+2026-11-15 14:22:48,718 ecatsim INFO slave 3 -> INIT
+2026-11-15 14:22:49,551 ecatsim INFO slave 1 -> PRE-OP
+2026-11-15 14:22:49,571 ecatsim INFO slave 2 -> PRE-OP
+2026-11-15 14:22:49,581 ecatsim INFO slave 3 -> PRE-OP
+2026-11-15 14:22:49,643 ecatsim INFO slave 1 -> SAFE-OP
+2026-11-15 14:22:49,644 ecatsim INFO slave 2 -> SAFE-OP
+2026-11-15 14:22:49,644 ecatsim INFO slave 3 -> SAFE-OP
+2026-11-15 14:22:49,740 ecatsim INFO slave 1 -> INIT
+2026-11-15 14:22:49,740 ecatsim INFO slave 2 -> INIT
+2026-11-15 14:22:49,741 ecatsim INFO slave 3 -> INIT
+2026-11-15 14:22:49,770 ecatsim INFO slave 1 -> PRE-OP
+2026-11-15 14:22:49,791 ecatsim INFO slave 2 -> PRE-OP
+2026-11-15 14:22:49,801 ecatsim INFO slave 3 -> PRE-OP
+2026-11-15 14:22:49,852 ecatsim INFO slave 1 -> SAFE-OP
+2026-11-15 14:22:49,853 ecatsim INFO slave 2 -> SAFE-OP
+2026-11-15 14:22:49,854 ecatsim INFO slave 3 -> SAFE-OP
+2026-11-15 14:22:49,867 ecatsim INFO slave 1 -> OP
+2026-11-15 14:22:49,868 ecatsim INFO slave 2 -> OP
+2026-11-15 14:22:49,868 ecatsim INFO slave 3 -> OP
+2026-11-15 14:23:48,645 ecatsim INFO slave 1 -> INIT
+2026-11-15 14:23:48,646 ecatsim INFO slave 2 -> INIT
+2026-11-15 14:23:48,647 ecatsim INFO slave 3 -> INIT
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/opt/etherq/sim/ecatsim/__main__.py", line 103, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/etherq/sim/ecatsim/__main__.py", line 81, in main
+    raw, peer = transport.recv()

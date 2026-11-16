@@ -1,0 +1,5 @@
+axisdemo: slave 3 'EQ-AX1 Servo Axis (virtual)' (outputs @1, inputs @1), pid 1118230
+  SWITCH ON DISABLED   sw=0x0240  actual=   -99518  target=   -99518
+axisdemo: OPERATION ENABLED at -99518 counts, starting profile
+  OPERATION ENABLED    sw=0x1237  actual=    35516  target=    37351
+  OPERATION ENABLED    sw=0x1237  actual=   100286  target=   100385

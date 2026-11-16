@@ -1,0 +1,1 @@
+ecatctl: /dev/ecat/out: Permission denied (is ecatd running?)

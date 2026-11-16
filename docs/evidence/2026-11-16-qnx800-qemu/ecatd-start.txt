@@ -1,0 +1,3 @@
+EtherQ: BPF multi-packet writes (BIOCSMMWRITE) enabled on vtnet1
+ecatd: 3 slaves on vtnet1, 7 output bytes, 11 input bytes, expected WKC 6
+ecatd: cycle 4000 us at priority 50; serving /dev/ecat/in /dev/ecat/out /dev/ecat/status

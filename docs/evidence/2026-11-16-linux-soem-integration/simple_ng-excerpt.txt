@@ -1,0 +1,8 @@
+Finding autoconfig slaves... 3 slaves found
+Sequential mapping of I/O... mapped 7O+11I bytes from 1 segments
+Waiting for all slaves in safe operational... done
+Setting operational state... all slaves are now operational
+Iteration    1:   222 usec  WKC 6  O: 00 00 00 00 00 00 00  I: 00 40 02 00 00 00 00 00 00 00 00  T: 0
+Iteration    2:   284 usec  WKC 6  O: 00 00 00 00 00 00 00  I: 00 40 02 00 00 00 00 00 00 00 00  T: 0
+Iteration 9999:   389 usec  WKC 6  O: 00 00 00 00 00 00 00  I: 00 40 02 00 00 00 00 00 00 00 00  T: 0
+Iteration 10000:   274 usec  WKC 6  O: 00 00 00 00 00 00 00  I: 00 40 02 00 00 00 00 00 00 00 00  T: 0

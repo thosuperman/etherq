@@ -1,0 +1,16 @@
+cycles          7672
+last WKC        6
+WKC errors      252
+missed periods  483
+overruns        15
+recoveries      2
+output clients  0
+wake latency [timing values withheld from publication: see README]
+cycle exec [timing values withheld from publication: see README]
+EtherQ: BPF multi-packet writes (BIOCSMMWRITE) enabled on vtnet1
+ecatd: 3 slaves on vtnet1, 7 output bytes, 11 input bytes, expected WKC 6
+ecatd: cycle 4000 us at priority 50; serving /dev/ecat/in /dev/ecat/out /dev/ecat/status
+ecatd: client closed /dev/ecat/out: 6 output bytes zeroed and released
+ecatd: client closed /dev/ecat/out: 1 output bytes zeroed and released
+ecatd: slave 2 in SAFE-OP+ERROR (AL 0x001b), acknowledging
+ecatd: slave 3 in SAFE-OP+ERROR (AL 0x001b), acknowledging

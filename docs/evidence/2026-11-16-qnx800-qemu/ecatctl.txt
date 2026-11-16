@@ -1,0 +1,14 @@
+interface      vtnet1
+slaves         3
+bus state      OP
+process image  7 output bytes, 11 input bytes
+expected WKC   6
+cycle          4000 us at priority 50
+  # state     AL    addr   vendor     product    obits ibits out@ in@  name
+  1 OP        0x0000 0x1001 0x45514e58 0x00000001     0     8    0    0  EQ-DI8 8Ch Dig In (virtual)
+  2 OP        0x0000 0x1002 0x45514e58 0x00000002     8     0    0    0  EQ-DO8 8Ch Dig Out (virtual)
+  3 OP        0x0000 0x1003 0x45514e58 0x00000003    48    80    1    1  EQ-AX1 Servo Axis (virtual)
+total 0
+cr--r--r--  1 root root 0,   1 2026-11-16 12:57 in
+crw-rw----  1 root root 0,   1 2026-11-16 12:57 out
+cr--r--r--  1 root root 0,   1 2026-11-16 12:57 status

@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Host-side CI. The QNX build itself needs the licensed QNX SDP 8.0 and is run
+# locally (scripts/qnx-build.sh); SDP files must never be uploaded to CI.
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Simulator unit tests
+        run: |
+          sudo apt-get update && sudo apt-get install -y python3-pytest
+          cd sim && python3 -m pytest -q tests
+      - name: Portable core (ASan/UBSan)
+        run: |
+          cmake -S . -B build/host -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-fsanitize=address,undefined"
+          cmake --build build/host
+          ctest --test-dir build/host --output-on-failure
+
+  soem-integration:
+    # Unmodified upstream SOEM v2.0.1 (Linux) against ecatsim over a veth pair.
+    runs-on: ubuntu-24.04
+    env:
+      SOEM_URL: https://github.com/OpenEtherCATsociety/SOEM/archive/refs/tags/v2.0.1.tar.gz
+      SOEM_SHA256: 933208261f1737ae530d25b915c1ce459413dcdba13d92e95af3726380601648
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build upstream SOEM
+        run: |
+          sudo apt-get update && sudo apt-get install -y python3-pytest
+          curl -fsSL -o /tmp/soem.tar.gz "$SOEM_URL"
+          echo "$SOEM_SHA256  /tmp/soem.tar.gz" | sha256sum -c -
+          mkdir -p /tmp/soem-src && tar -xzf /tmp/soem.tar.gz -C /tmp/soem-src --strip-components=1
+          cmake -S /tmp/soem-src -B /tmp/soem-build -DCMAKE_BUILD_TYPE=Release
+          cmake --build /tmp/soem-build -j"$(nproc)"
+      - name: Run SOEM against ecatsim
+        run: sudo env SOEM_BUILD=/tmp/soem-build OUT="$PWD/build/integration" ./scripts/linux-integration.sh
+      - name: Keep logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: soem-integration-logs
+          path: build/integration/

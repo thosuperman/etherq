@@ -1,0 +1,76 @@
+1
+00:00:00,600 --> 00:00:07,064
+In a robot cell or a CNC machine, the application that commands a motor can crash.
+
+2
+00:00:07,414 --> 00:00:14,390
+When it does, the motor must not keep acting on its last command, and the rest of the machine must keep running.
+
+3
+00:00:17,390 --> 00:00:23,321
+EtherQ is an open-source EtherCAT master for QNX 8.0.
+
+4
+00:00:23,671 --> 00:00:35,340
+It ports the SOEM master to QNX, runs it in an independent daemon, and exposes the bus as a QNX resource manager under /dev/ecat.
+
+5
+00:00:35,690 --> 00:00:43,690
+Here it runs on real QNX 8.0 in QEMU, against three simulated EtherCAT devices.
+
+6
+00:00:45,190 --> 00:00:52,038
+Upstream SOEM, compiled for QNX, finds all three slaves through the io-sock packet filter.
+
+7
+00:00:52,388 --> 00:01:02,436
+The EtherQ daemon brings the bus to operational. Its cycle is driven by a QNX timer pulse, at a fixed real-time priority.
+
+8
+00:01:03,636 --> 00:01:13,663
+Now a separate process, axisdemo, enables the servo through the CiA 402 sequence, and drives it along a smooth profile.
+
+9
+00:01:15,163 --> 00:01:17,872
+Watch what happens when we kill it with SIGKILL.
+
+10
+00:01:18,222 --> 00:01:29,763
+No cleanup code runs in the client. But QNX closes its connection to the resource manager, and EtherQ zeroes the six output bytes it owned, and releases them.
+
+11
+00:01:30,113 --> 00:01:34,913
+The servo drops to switch on disabled, while the bus stays operational.
+
+12
+00:01:36,913 --> 00:01:42,972
+Every output byte has exactly one owner. A second writer gets: resource busy.
+
+13
+00:01:43,322 --> 00:01:54,650
+If the master itself stops for one second, the devices' watchdogs drop them to safe operational, and the supervisor recovers the bus as soon as it resumes.
+
+14
+00:01:55,000 --> 00:02:03,512
+The daemon can also drop root after start-up, and keep running as an ordinary user, with locked QNX abilities.
+
+15
+00:02:04,712 --> 00:02:11,517
+This is a real QNX 8.0 build, with the QNX compiler, and zero warnings.
+
+16
+00:02:11,867 --> 00:02:15,195
+The safe stop is a few lines in the close handler.
+
+17
+00:02:15,545 --> 00:02:20,900
+And an automated end-to-end test on the QNX target passes every check.
+
+18
+00:02:22,400 --> 00:02:29,205
+EtherQ brings open-source EtherCAT to QNX, with crash-safe outputs by design.
+
+19
+00:02:29,555 --> 00:02:34,099
+Next step: validation on physical EtherCAT hardware.
+

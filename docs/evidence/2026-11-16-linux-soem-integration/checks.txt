@@ -1,0 +1,8 @@
+PASS: slaveinfo finds 3 slaves
+PASS: slave 1 name from SII strings
+PASS: slave 3 name from SII strings
+PASS: vendor ID read from EEPROM
+PASS: simple_ng reaches OPERATIONAL
+cyclic exchanges: 10000, wrong WKC: 0, late replies (>2 ms): 14
+PASS: no wrong working counter in 10000 cycles
+PASS: late replies within 10 per mille

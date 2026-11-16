@@ -1,0 +1,4 @@
+ecatd: cycle 4000 us at priority 50; serving /dev/ecat/in /dev/ecat/out /dev/ecat/status
+ecatd: signal 15, requesting INIT and exiting
+0
+ls: /dev/ecat: No such file or directory

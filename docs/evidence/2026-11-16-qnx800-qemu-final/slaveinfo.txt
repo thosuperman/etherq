@@ -1,0 +1,66 @@
+SOEM (Simple Open EtherCAT Master)
+Slaveinfo
+Starting slaveinfo
+ecx_init on vtnet1 succeeded.
+3 slaves found and configured.
+Calculated workcounter 6
+
+Slave:1
+ Name:EQ-DI8 8Ch Dig In (virtual)
+ Output size: 0bits
+ Input size: 8bits
+ State: 4
+ Delay: 0[ns]
+ Has DC: 0
+ Activeports:1.1.0.0
+ Configured address: 1001
+ Man: 45514e58 ID: 00000001 Rev: 00010000
+ SM0 A:1000 L:   1 F:00010000 Type:4
+ FMMU0 Ls:00000007 Ll:   1 Lsb:0 Leb:7 Ps:1000 Psb:0 Ty:01 Act:01
+ FMMUfunc 0:2 1:0 2:0 3:0
+ MBX length wr: 0 rd: 0 MBX protocols : 00
+ CoE details: 00 FoE details: 00 EoE details: 00 SoE details: 00
+ Ebus current: 0[mA]
+ only LRD/LWR:0
+
+Slave:2
+ Name:EQ-DO8 8Ch Dig Out (virtual)
+ Output size: 8bits
+ Input size: 0bits
+ State: 4
+ Delay: 0[ns]
+ Has DC: 0
+ Activeports:1.1.0.0
+ Configured address: 1002
+ Man: 45514e58 ID: 00000002 Rev: 00010000
+ SM0 A:0f00 L:   1 F:00010044 Type:3
+ FMMU0 Ls:00000000 Ll:   1 Lsb:0 Leb:7 Ps:0f00 Psb:0 Ty:02 Act:01
+ FMMUfunc 0:1 1:0 2:0 3:0
+ MBX length wr: 0 rd: 0 MBX protocols : 00
+ CoE details: 00 FoE details: 00 EoE details: 00 SoE details: 00
+ Ebus current: 0[mA]
+ only LRD/LWR:0
+
+Slave:3
+ Name:EQ-AX1 Servo Axis (virtual)
+ Output size: 48bits
+ Input size: 80bits
+ State: 4
+ Delay: 0[ns]
+ Has DC: 0
+ Activeports:1.0.0.0
+ Configured address: 1003
+ Man: 45514e58 ID: 00000003 Rev: 00010000
+ SM0 A:1000 L:   0 F:00000026 Type:0
+ SM1 A:1080 L:   0 F:00000022 Type:0
+ SM2 A:1100 L:   6 F:00010064 Type:3
+ SM3 A:1180 L:  10 F:00010020 Type:4
+ FMMU0 Ls:00000001 Ll:   6 Lsb:0 Leb:7 Ps:1100 Psb:0 Ty:02 Act:01
+ FMMU1 Ls:00000008 Ll:  10 Lsb:0 Leb:7 Ps:1180 Psb:0 Ty:01 Act:01
+ FMMUfunc 0:1 1:2 2:0 3:0
+ MBX length wr: 0 rd: 0 MBX protocols : 00
+ CoE details: 00 FoE details: 00 EoE details: 00 SoE details: 00
+ Ebus current: 0[mA]
+ only LRD/LWR:0
+End slaveinfo, close socket
+End program

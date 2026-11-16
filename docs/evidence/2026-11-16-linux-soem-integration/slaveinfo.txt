@@ -1,0 +1,126 @@
+SOEM (Simple Open EtherCAT Master)
+Slaveinfo
+Starting slaveinfo
+ecx_init on eq-m succeeded.
+3 slaves found and configured.
+Calculated workcounter 6
+
+Slave:1
+ Name:EQ-DI8 8Ch Dig In (virtual)
+ Output size: 0bits
+ Input size: 8bits
+ State: 4
+ Delay: 0[ns]
+ Has DC: 0
+ Activeports:1.1.0.0
+ Configured address: 1001
+ Man: 45514e58 ID: 00000001 Rev: 00010000
+ SM0 A:1000 L:   1 F:00010000 Type:4
+ FMMU0 Ls:00000007 Ll:   1 Lsb:0 Leb:7 Ps:1000 Psb:0 Ty:01 Act:01
+ FMMUfunc 0:2 1:0 2:0 3:0
+ MBX length wr: 0 rd: 0 MBX protocols : 00
+ CoE details: 00 FoE details: 00 EoE details: 00 SoE details: 00
+ Ebus current: 0[mA]
+ only LRD/LWR:0
+PDO mapping according to SII :
+  SM0 TXPDO 0x1A00 
+     addr b   index: sub bitl data_type    name
+  [0x0007.0] 0x6000:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A01 
+     addr b   index: sub bitl data_type    name
+  [0x0007.1] 0x6010:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A02 
+     addr b   index: sub bitl data_type    name
+  [0x0007.2] 0x6020:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A03 
+     addr b   index: sub bitl data_type    name
+  [0x0007.3] 0x6030:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A04 
+     addr b   index: sub bitl data_type    name
+  [0x0007.4] 0x6040:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A05 
+     addr b   index: sub bitl data_type    name
+  [0x0007.5] 0x6050:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A06 
+     addr b   index: sub bitl data_type    name
+  [0x0007.6] 0x6060:0x01 0x01 BOOLEAN      
+  SM0 TXPDO 0x1A07 
+     addr b   index: sub bitl data_type    name
+  [0x0007.7] 0x6070:0x01 0x01 BOOLEAN      
+
+Slave:2
+ Name:EQ-DO8 8Ch Dig Out (virtual)
+ Output size: 8bits
+ Input size: 0bits
+ State: 4
+ Delay: 0[ns]
+ Has DC: 0
+ Activeports:1.1.0.0
+ Configured address: 1002
+ Man: 45514e58 ID: 00000002 Rev: 00010000
+ SM0 A:0f00 L:   1 F:00010044 Type:3
+ FMMU0 Ls:00000000 Ll:   1 Lsb:0 Leb:7 Ps:0f00 Psb:0 Ty:02 Act:01
+ FMMUfunc 0:1 1:0 2:0 3:0
+ MBX length wr: 0 rd: 0 MBX protocols : 00
+ CoE details: 00 FoE details: 00 EoE details: 00 SoE details: 00
+ Ebus current: 0[mA]
+ only LRD/LWR:0
+PDO mapping according to SII :
+  SM0 RXPDO 0x1600 
+     addr b   index: sub bitl data_type    name
+  [0x0000.0] 0x7000:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1601 
+     addr b   index: sub bitl data_type    name
+  [0x0000.1] 0x7010:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1602 
+     addr b   index: sub bitl data_type    name
+  [0x0000.2] 0x7020:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1603 
+     addr b   index: sub bitl data_type    name
+  [0x0000.3] 0x7030:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1604 
+     addr b   index: sub bitl data_type    name
+  [0x0000.4] 0x7040:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1605 
+     addr b   index: sub bitl data_type    name
+  [0x0000.5] 0x7050:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1606 
+     addr b   index: sub bitl data_type    name
+  [0x0000.6] 0x7060:0x01 0x01 BOOLEAN      
+  SM0 RXPDO 0x1607 
+     addr b   index: sub bitl data_type    name
+  [0x0000.7] 0x7070:0x01 0x01 BOOLEAN      
+
+Slave:3
+ Name:EQ-AX1 Servo Axis (virtual)
+ Output size: 48bits
+ Input size: 80bits
+ State: 4
+ Delay: 0[ns]
+ Has DC: 0
+ Activeports:1.0.0.0
+ Configured address: 1003
+ Man: 45514e58 ID: 00000003 Rev: 00010000
+ SM0 A:1000 L:   0 F:00000026 Type:0
+ SM1 A:1080 L:   0 F:00000022 Type:0
+ SM2 A:1100 L:   6 F:00010064 Type:3
+ SM3 A:1180 L:  10 F:00010020 Type:4
+ FMMU0 Ls:00000001 Ll:   6 Lsb:0 Leb:7 Ps:1100 Psb:0 Ty:02 Act:01
+ FMMU1 Ls:00000008 Ll:  10 Lsb:0 Leb:7 Ps:1180 Psb:0 Ty:01 Act:01
+ FMMUfunc 0:1 1:2 2:0 3:0
+ MBX length wr: 0 rd: 0 MBX protocols : 00
+ CoE details: 00 FoE details: 00 EoE details: 00 SoE details: 00
+ Ebus current: 0[mA]
+ only LRD/LWR:0
+PDO mapping according to SII :
+  SM2 RXPDO 0x1600 
+     addr b   index: sub bitl data_type    name
+  [0x0001.0] 0x6040:0x00 0x10 UNSIGNED16   
+  [0x0003.0] 0x607A:0x00 0x20 INTEGER32    
+  SM3 TXPDO 0x1A00 
+     addr b   index: sub bitl data_type    name
+  [0x0008.0] 0x6041:0x00 0x10 UNSIGNED16   
+  [0x000A.0] 0x6064:0x00 0x20 INTEGER32    
+  [0x000E.0] 0x606C:0x00 0x20 INTEGER32    
+End slaveinfo, close socket
+End program

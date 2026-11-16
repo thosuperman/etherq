@@ -1,0 +1,12 @@
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+# QNX SDP files, target images and license material must never be committed
+qnx800/
+*.ifs
+*.qcow2
+target-image/
+*.pem
+.env
+.DS_Store

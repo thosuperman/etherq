@@ -1,0 +1,3 @@
+cycles=10000
+wrong_wkc=0
+late_replies=7

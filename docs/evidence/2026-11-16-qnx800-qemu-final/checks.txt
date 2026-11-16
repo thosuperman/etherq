@@ -1,0 +1,26 @@
+PASS: target is QNX 8.0
+PASS: fresh binaries uploaded, no leftover processes
+PASS: slaveinfo on QNX finds 3 slaves
+PASS: expected WKC 6
+PASS: BIOCSMMWRITE accepted by io-sock
+PASS: bus in OP
+PASS: simulator sees 3 slaves in OP
+PASS: axisdemo enabled the servo (CiA 402)
+PASS: SIGKILL: ecatd released the client's 6 output bytes
+PASS: servo disabled after client crash
+PASS: bus stayed in OP after client crash
+PASS: second writer gets EBUSY
+PASS: DO8 outputs zero after blink crash
+PASS: slaves with outputs dropped to SAFE-OP 0x001B
+PASS: supervisor recovered all slaves to OP
+PASS: ecatctl watch returned after 50 cycles (poll per cycle)
+PASS: ecatctl state init -> all slaves INIT
+PASS: ecatctl state op -> back to OP
+PASS: non-root user refused (/dev/ecat/out is 0660 root)
+PASS: bus unaffected by refused request
+PASS: ecatd dropped to uid 1000 with locked abilities
+PASS: process table shows ecatd as uid 1000
+PASS: bus in OP under unprivileged ecatd
+PASS: SIGTERM: orderly shutdown message
+PASS: slaves left in INIT after shutdown
+PASS: /dev/ecat removed after exit

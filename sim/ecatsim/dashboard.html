@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ecatsim · virtual EtherCAT segment</title>
+<style>
+  :root {
+    --bg: #0f1216; --panel: #171b21; --line: #2a313b; --text: #e7ebf0; --muted: #8c96a3;
+    --init: #6b7480; --preop: #c9a227; --safeop: #d9822b; --op: #2fb86a; --err: #e5484d;
+    --accent: #4aa3ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { display: flex; align-items: center; gap: 16px; padding: 14px 24px;
+           border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  h1 { font-size: 20px; margin: 0; font-weight: 650; letter-spacing: .2px; }
+  .badge { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+           border: 1px solid var(--line); color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  .badge.sim { color: #f2c94c; border-color: #6b5a1d; }
+  .grow { flex: 1; }
+  main { padding: 20px 24px; display: grid; gap: 20px; }
+  .chain { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 4px; }
+  .node { min-width: 210px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+          padding: 14px; position: relative; }
+  .node.master { min-width: 150px; border-style: dashed; }
+  .wire { width: 46px; align-self: center; height: 3px; background: var(--accent); position: relative; }
+  .wire.cut { background: repeating-linear-gradient(90deg, var(--err) 0 6px, transparent 6px 12px); }
+  .node h3 { margin: 0 0 4px; font-size: 15px; font-weight: 650; }
+  .node .sub { color: var(--muted); font-size: 12px; font-family: ui-monospace, Menlo, monospace; }
+  .state { margin-top: 10px; display: inline-block; font-weight: 800; font-size: 18px; padding: 4px 10px;
+           border-radius: 6px; background: var(--init); color: #fff; letter-spacing: .5px; }
+  .state.PRE-OP { background: var(--preop); color: #1b1b1b; }
+  .state.SAFE-OP { background: var(--safeop); }
+  .state.OP { background: var(--op); }
+  .err { color: var(--err); font-weight: 700; font-size: 13px; margin-top: 6px; min-height: 18px; }
+  .unreach { opacity: .35; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .panel h2 { margin: 0 0 12px; font-size: 15px; color: var(--muted); font-weight: 650;
+              text-transform: uppercase; letter-spacing: .6px; }
+  .bits { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+  .bit { aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--line); display: grid; place-items: center;
+         font-weight: 700; color: var(--muted); background: #11151a; user-select: none; }
+  .bit.on { background: var(--op); color: #fff; border-color: var(--op); }
+  .bit.btn { cursor: pointer; }
+  .bit.btn:hover { border-color: var(--accent); }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 15px; }
+  .kv b { color: var(--muted); font-weight: 600; }
+  .mono { font-family: ui-monospace, Menlo, monospace; }
+  .big { font-size: 28px; font-weight: 750; }
+  canvas { width: 100%; height: 180px; display: block; background: #11151a; border-radius: 8px;
+           border: 1px solid var(--line); margin-top: 10px; }
+  button { background: #222832; color: var(--text); border: 1px solid var(--line); border-radius: 6px;
+           padding: 8px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.danger { border-color: #6b2a2c; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  footer { color: var(--muted); font-size: 12px; padding: 0 24px 20px; }
+  /* half-width windows (side-by-side demos): keep all slaves visible */
+  @media (max-width: 1000px) {
+    header { padding: 10px 16px; }
+    main { padding: 14px 16px; gap: 14px; }
+    .node { min-width: 0; flex: 1 1 0; padding: 10px; }
+    .node.master { min-width: 0; flex: 0.8 1 0; }
+    .wire { width: 18px; flex: 0 0 18px; }
+    .node h3 { font-size: 13px; }
+    .node .sub { font-size: 11px; }
+    .state { font-size: 16px; padding: 3px 8px; }
+    .panels { grid-template-columns: 1fr 1fr; gap: 14px; }
+    #servoPanel { grid-column: 1 / -1; }
+    .panel { padding: 12px; }
+    .big { font-size: 24px; }
+    canvas { height: 150px; }
+  }
+  #conn { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>ecatsim — virtual EtherCAT segment</h1>
+  <span class="badge sim">Simulated slaves</span>
+  <span class="grow"></span>
+  <span id="conn">connecting…</span>
+</header>
+<main>
+  <section class="chain" id="chain"></section>
+  <section class="panels">
+    <div class="panel" id="servoPanel">
+      <h2>Servo axis (CiA 402, CSP)</h2>
+      <div class="kv">
+        <b>Drive state</b><span id="axState" class="mono big">—</span>
+        <b>Position</b><span id="axPos" class="mono">—</span>
+        <b>Target</b><span id="axTgt" class="mono">—</span>
+        <b>Velocity</b><span id="axVel" class="mono">—</span>
+        <b>Status / control</b><span id="axWords" class="mono">—</span>
+        <b>Error code</b><span id="axErr" class="mono">—</span>
+      </div>
+      <canvas id="plot" width="800" height="180"></canvas>
+    </div>
+    <div class="panel">
+      <h2>Digital inputs (click to toggle)</h2>
+      <div class="bits" id="di"></div>
+      <h2 style="margin-top:18px">Digital outputs (written by the master)</h2>
+      <div class="bits" id="do"></div>
+    </div>
+    <div class="panel">
+      <h2>Bus</h2>
+      <div class="kv">
+        <b>Frames processed</b><span id="frames" class="mono">0</span>
+        <b>Process-data interval</b><span id="iv" class="mono">—</span>
+        <b>Watchdog trips</b><span id="wd" class="mono">0</span>
+      </div>
+      <p style="color:var(--muted);font-size:13px">Intervals are measured on the simulator host from frame arrival
+        times. They are not QNX target timing figures.</p>
+      <h2>Fault injection</h2>
+      <div class="row">
+        <button class="danger" onclick="cable(2)">Cut cable after slave 2</button>
+        <button onclick="cable('restore')">Restore cable</button>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>EtherQ · ecatsim · fictitious devices (vendor 0x45514E58), not models of real products.</footer>
+<script>
+const $ = (id) => document.getElementById(id);
+let last = null;
+
+function hex(n, w) { return "0x" + (n >>> 0).toString(16).padStart(w, "0"); }
+
+function renderChain(s) {
+  const c = $("chain");
+  const label = (s.master || "EtherCAT master").replace(/[<>&]/g, "");
+  let html = `<div class="node master"><h3>Master</h3><div class="sub">${label}</div></div>`;
+  s.slaves.forEach((sl, i) => {
+    const cut = !sl.reachable;
+    html += `<div class="wire ${cut ? "cut" : ""}"></div>`;
+    html += `<div class="node ${cut ? "unreach" : ""}">
+      <h3>${sl.position}. ${sl.name}</h3>
+      <div class="sub">addr ${sl.station_address} · pc ${sl.product_code}</div>
+      <div class="state ${sl.al_state}">${sl.al_state}</div>
+      <div class="err">${sl.al_error ? "ERROR " + sl.al_code + (sl.al_code === "0x001b" ? " · SM watchdog" : "") : ""}</div>
+    </div>`;
+  });
+  c.innerHTML = html;
+}
+
+function renderBits(el, bits, clickable, slave) {
+  el.innerHTML = bits.map((b, i) =>
+    `<div class="bit ${b ? "on" : ""} ${clickable ? "btn" : ""}" ${clickable ? `onclick="toggle(${slave},${i},${b ? 0 : 1})"` : ""}>${i}</div>`
+  ).join("");
+}
+
+function drawPlot(hist) {
+  const cv = $("plot"), ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  if (!hist || hist.length < 2) return;
+  const t0 = hist[0][0], t1 = hist[hist.length - 1][0];
+  let lo = Infinity, hi = -Infinity;
+  hist.forEach(([, p, g]) => { lo = Math.min(lo, p, g); hi = Math.max(hi, p, g); });
+  if (hi - lo < 1000) { hi += 500; lo -= 500; }
+  const x = (t) => ((t - t0) / Math.max(t1 - t0, 1e-6)) * (W - 20) + 10;
+  const y = (v) => H - 10 - ((v - lo) / (hi - lo)) * (H - 20);
+  const line = (k, color, width) => {
+    ctx.strokeStyle = color; ctx.lineWidth = width; ctx.beginPath();
+    hist.forEach((h, i) => (i ? ctx.lineTo(x(h[0]), y(h[k])) : ctx.moveTo(x(h[0]), y(h[k]))));
+    ctx.stroke();
+  };
+  line(2, "#4aa3ff", 2);  // target
+  line(1, "#2fb86a", 3);  // actual
+  ctx.fillStyle = "#8c96a3"; ctx.font = "14px system-ui";
+  ctx.fillText("target", 14, 18); ctx.fillStyle = "#2fb86a"; ctx.fillText("actual", 70, 18);
+}
+
+function render(s) {
+  last = s;
+  renderChain(s);
+  let wd = 0;
+  s.slaves.forEach((sl) => {
+    wd += sl.watchdog_trips;
+    const d = sl.device;
+    if (d.kind === "di8") renderBits($("di"), d.inputs, true, sl.position);
+    if (d.kind === "do8") renderBits($("do"), d.outputs, false, sl.position);
+    if (d.kind === "servo") {
+      $("axState").textContent = d.state.replaceAll("_", " ");
+      $("axState").style.color = d.state === "OPERATION_ENABLED" ? "var(--op)" : d.state === "FAULT" ? "var(--err)" : "var(--text)";
+      $("axPos").textContent = d.position.toLocaleString() + " cnt";
+      $("axTgt").textContent = d.target.toLocaleString() + " cnt";
+      $("axVel").textContent = d.velocity.toLocaleString() + " cnt/s";
+      $("axWords").textContent = hex(d.statusword, 4) + " / " + hex(d.controlword, 4);
+      $("axErr").textContent = d.error_code ? hex(d.error_code, 4) : "none";
+      drawPlot(d.history);
+    }
+  });
+  $("frames").textContent = s.stats.frames.toLocaleString();
+  const iv = s.stats.pd_interval_us;
+  $("iv").textContent = iv ? `mean ${(iv.mean / 1000).toFixed(2)} ms · max ${(iv.max / 1000).toFixed(2)} ms` : "—";
+  $("wd").textContent = wd;
+}
+
+async function toggle(slave, ch, on) { await fetch(`/api/di?slave=${slave}&ch=${ch}&on=${on}`, { method: "POST" }); }
+async function cable(after) { await fetch(`/api/cable?after=${after}`, { method: "POST" }); }
+
+function connect() {
+  const es = new EventSource("/events");
+  es.onopen = () => { $("conn").textContent = "live"; };
+  es.onmessage = (e) => render(JSON.parse(e.data));
+  es.onerror = () => { $("conn").textContent = "reconnecting…"; };
+}
+connect();
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+## qcc
+	12.2.0,gcc_ntoaarch64le
+	12.2.0,gcc_ntoaarch64le_cxx
+	12.2.0,gcc_ntox86_64	(default)
+	12.2.0,gcc_ntox86_64_gpp
+	12.2.0,gcc_ntoaarch64le_gpp
+	12.2.0,gcc_ntox86_64_cxx
+
+## SDP
+com.qnx.qnx800/8.0.0.00141T202311271501L
+com.qnx.qnx800.quickstart.qemu/0.5.0.00050T202609021847L
+
+## build: clean rebuild, warnings = 0
+ecatd      ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.
+ecatctl    ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.
+axisdemo   ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.
+blink      ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.
+slaveinfo  ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.
+simple_ng  ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /usr/lib/ldqnx-64.so.
+
+## QEMU
+QEMU emulator version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1.18)
+KVM: no (software emulation)
